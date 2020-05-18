@@ -43,38 +43,12 @@ mix docs
 
 This will generate a `doc/` directory with a documentation in HTML. To view the documentation, open the `index.html` file in the generated directory.
 
-### Ecto Docs
+# Using the API
 
-https://hexdocs.pm/ecto/Ecto.html
+## Get a Profile 
+GET to /profiles/username
 
-### Stop postgresql
+## Search a Profile
 
-brew services stop postgresql
+GET to /search/username
 
-### Start postgresql in docker
-
-docker run --name some-postgres -p 5432:5432 -v postgres-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres -d postgres
-
-### Help with Docker & Postgres
-
-https://markheath.net/post/exploring-postgresql-with-docker
-
-### Working with a repo
-
-mix ecto.create -r Todos.Repo
-
-mix ecto.migrate -r Todos.Repo
-
-mix ecto.drop -r Todos.Repo
-
-Insert some sample data before write our api resource
-
-Romulus.Repo.insert!(%Romulus.Todo{item: "Hello1"}) 
-
-Add a new column to todo table with an ecto migration
-
-Romulus.Repo.insert!(%Romulus.Todo{item: "Hello1", title: "test"}) 
-
-Seeding data
-
-https://www.phoenixframework.org/blog/seeding-data

@@ -17,11 +17,7 @@ defmodule RomulusWeb.Router do
 
   scope "/", RomulusWeb do
     pipe_through(:api)
-    # get("/user", UserController, :current_user)
-    # put("/user", UserController, :update)
-    # post("/users", UserController, :create)
-    # post("/users/login", SessionController, :create)
-
+    
     get("/search/:username", ProfileController, :index)
     get("/profiles/:username", ProfileController, :getprofile)
   end
