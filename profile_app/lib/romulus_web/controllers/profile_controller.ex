@@ -2,7 +2,7 @@ defmodule RomulusWeb.ProfileController do
   use RomulusWeb, :controller
   use RomulusWeb.GuardedController
 
-  alias Romulus.Accounts.{Users, User}
+  #alias Romulus.Accounts.{Users, User}
 
   action_fallback(RomulusWeb.FallbackController)
 

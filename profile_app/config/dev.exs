@@ -36,10 +36,10 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
-config :romulus, Romulus.Repo,[
-  adapter: Ecto.Adapters.Postgres,
-  database: "todos_dev",
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost"
-]
+# config :romulus, Romulus.Repo,[
+#   adapter: Ecto.Adapters.Postgres,
+#   database: "todos_dev",
+#   username: "postgres",
+#   password: "postgres",
+#   hostname: "localhost"
+# ]

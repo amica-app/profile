@@ -7,7 +7,7 @@ use Mix.Config
 
 # General application configuration
 #config :romulus_app, ecto_repos: [Forms.Repo2]
-config :romulus, :ecto_repos, [Romulus.Repo]
+#config :romulus, :ecto_repos, [Romulus.Repo]
 
 # config :toniq, redis_url: "redis://localhost:6379/0"
 # todo if we want to recover jobs on restart enable below line
