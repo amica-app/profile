@@ -1,6 +1,6 @@
-# Romulus App
+# Profile App
 
-Romulus App that provides account registration feature for Romulus Mesagging Application.
+Profile App that provides profile features for Amica Application.
 
 ## Installing / Getting started
 
@@ -8,22 +8,21 @@ To run this project, you will need to install the following dependencies on your
 
 * [Elixir](https://elixir-lang.org/install.html)
 * [Phoenix](https://hexdocs.pm/phoenix/installation.html)
-* [PostgreSQL](https://www.postgresql.org/download/macosx/)
+* Riak - See Riak repo wiki for information
 
 To get started, run the following commands in your project folder:
 
 ```shell
 cp config/dev.exs.example config/dev.exs  # creates the project's configuration file
 mix deps.get  # installs the dependencies
-mix que.setup # If you are using persistence option for que job processing
 mix phx.server  # run the application.
 OR
 iex -S mix phx.server # run the application in iex
 ```
 
-This is a backend project, you won't be able to go to localhost:4000 and see an aplication. 
+This is a backend project, you won't be able to go to localhost:5000 and see an aplication. 
 
-In order to see the [Romulus UI](romulus_ui) frontend you will need to download and setup.
+In order to see the UI frontend you will need to download and setup. TODO
 
 ## Tests
 
@@ -51,4 +50,8 @@ GET to /profiles/username
 ## Search a Profile
 
 GET to /search/username
+
+## Setup Test Data
+
+GET to /setup/username
 

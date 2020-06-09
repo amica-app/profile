@@ -7,7 +7,7 @@ use Mix.Config
 
 # General application configuration
 #config :romulus_app, ecto_repos: [Forms.Repo2]
-config :romulus, :ecto_repos, [Romulus.Repo]
+#config :romulus, :ecto_repos, [Romulus.Repo]
 
 # config :toniq, redis_url: "redis://localhost:6379/0"
 # todo if we want to recover jobs on restart enable below line
@@ -17,6 +17,25 @@ config :romulus, :ecto_repos, [Romulus.Repo]
 #   pubsub: [adapter: Phoenix.PubSub.PG2,
 #            pool_size: 1,
 #            name: MyApp.PubSub]
+
+config :pooler, pools:
+  [
+    # [
+    #   name: :riaklocal1,
+    #   group: :riak,
+    #   max_count: 10,
+    #   init_count: 5,
+    #   start_mfa: { Riak.Connection, :start_link, [] }
+    # ], 
+    
+    [
+      name: :riaklocal2,
+      group: :riak,
+      max_count: 15,
+      init_count: 2,
+      start_mfa: { Riak.Connection, :start_link, ['192.168.2.175', 8087] }
+    ]
+  ]
 
 # Configures the endpoint
 config :romulus_app, RomulusWeb.Endpoint,

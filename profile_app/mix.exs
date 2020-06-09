@@ -26,7 +26,7 @@ defmodule RomulusApp.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {RomulusApp.Application, []}, extra_applications: [:logger, :runtime_tools, :comeonin, :romulus, :que, :httpoison]] # :wobserver :toniq, :phoenix_pubsub
+    [mod: {RomulusApp.Application, []}, extra_applications: [:logger, :runtime_tools, :comeonin, :httpoison]] # :romulus, :wobserver :toniq, :phoenix_pubsub
   end
 
   # Specifies which paths to compile per environment.
@@ -43,7 +43,7 @@ defmodule RomulusApp.Mixfile do
       {:phoenix, "~> 1.3.0"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
-      {:postgrex, "~> 0.13.3"},
+      #{:postgrex, "~> 0.13.3"},
       {:gettext, "~> 0.11"},
       {:proper_case, "~> 1.0.0"},
       {:cowboy, "~> 1.1"},
@@ -55,13 +55,12 @@ defmodule RomulusApp.Mixfile do
       {:ex_machina, "~> 2.0", only: :test},
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
       {:plug, "~> 1.0"},
-      {:romulus, path: "../romulus_repo"}, # Local path
-    #  {:toniq, "~> 1.2"},
-      {:que, "~> 0.10.1"},
+    
       {:poison, "~> 3.1"},
       {:httpoison, "~> 1.6"},
     #  {:wobserver, "~> 0.1"},
-      {:corsica, "~> 1.0"} #,
+      {:corsica, "~> 1.0"}, #,
+      {:riak, "~> 1.1.6"}
       #{:phoenix_swagger, "~> 0.8"}
     ]
   end

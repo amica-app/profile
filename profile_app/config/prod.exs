@@ -17,10 +17,10 @@ config :romulus_app, RomulusWeb.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
-config :romulus_app, Forms.Repo2,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "core",
-  hostname: "localhost",
-  pool_size: 10
+# config :romulus_app, Forms.Repo2,
+#   adapter: Ecto.Adapters.Postgres,
+#   username: "postgres",
+#   password: "postgres",
+#   database: "core",
+#   hostname: "localhost",
+#   pool_size: 10
