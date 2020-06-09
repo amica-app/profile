@@ -20,5 +20,6 @@ defmodule RomulusWeb.Router do
     
     get("/search/:username", ProfileController, :index)
     get("/profiles/:username", ProfileController, :getprofile)
+    get("/setup/:username", ProfileController, :setuptestdata)
   end
 end

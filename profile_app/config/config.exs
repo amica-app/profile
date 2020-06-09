@@ -18,6 +18,25 @@ use Mix.Config
 #            pool_size: 1,
 #            name: MyApp.PubSub]
 
+config :pooler, pools:
+  [
+    # [
+    #   name: :riaklocal1,
+    #   group: :riak,
+    #   max_count: 10,
+    #   init_count: 5,
+    #   start_mfa: { Riak.Connection, :start_link, [] }
+    # ], 
+    
+    [
+      name: :riaklocal2,
+      group: :riak,
+      max_count: 15,
+      init_count: 2,
+      start_mfa: { Riak.Connection, :start_link, ['192.168.2.175', 8087] }
+    ]
+  ]
+
 # Configures the endpoint
 config :romulus_app, RomulusWeb.Endpoint,
   url: [host: "localhost"],

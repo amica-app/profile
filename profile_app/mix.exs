@@ -61,7 +61,8 @@ defmodule RomulusApp.Mixfile do
       {:poison, "~> 3.1"},
       {:httpoison, "~> 1.6"},
     #  {:wobserver, "~> 0.1"},
-      {:corsica, "~> 1.0"} #,
+      {:corsica, "~> 1.0"}, #,
+      {:riak, "~> 1.1.6"}
       #{:phoenix_swagger, "~> 0.8"}
     ]
   end

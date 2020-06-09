@@ -9,6 +9,10 @@ defmodule RomulusWeb.ProfileController do
   #plug(Guardian.Plug.EnsureAuthenticated when action in [:follow, :unfollow])
 
   def index(conn, %{"username" => username}, current_user) do
+    keyValue = Randomizer.randomizer(10)
+        o = Riak.Object.create(bucket: "user", key: keyValue, data: "Han Solo")
+        Riak.put(o)
+        IO.puts keyValue
     users = [
       %{name: "Joe",
         email: "joe@example.com",
@@ -63,5 +67,20 @@ defmodule RomulusWeb.ProfileController do
     #     |> put_status(:not_found)
     #     |> render(RomulusWeb.ErrorView, "404.json")
     # end
+  end
+
+  def setuptestdata(conn, %{"username" => username}, current_user) do
+    testProfile1 = 
+      %{name: "Joe",
+        email: "joe@example.com",
+        sex: "maile"}
+    keyValue = Randomizer.randomizer(10)
+    o = Riak.Object.create(bucket: "profile", key: "joe@example.com", data: testProfile1)
+    Riak.put(o)
+    
+    IO.puts "Setup default data for profiles"
+    data = 
+      %{complete: "new user data setup"}
+    json conn, data
   end
 end
