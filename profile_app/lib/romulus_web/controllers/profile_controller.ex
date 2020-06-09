@@ -9,10 +9,11 @@ defmodule RomulusWeb.ProfileController do
   #plug(Guardian.Plug.EnsureAuthenticated when action in [:follow, :unfollow])
 
   def index(conn, %{"username" => username}, current_user) do
-    keyValue = Randomizer.randomizer(10)
-        o = Riak.Object.create(bucket: "user", key: keyValue, data: "Han Solo")
-        Riak.put(o)
-        IO.puts keyValue
+    # TODO get rid of this method or rewrite to use a search, i think this will go in neo4j though
+    #keyValue = Randomizer.randomizer(10)
+        # o = Riak.Object.create(bucket: "user", key: keyValue, data: "Han Solo")
+        # Riak.put(o)
+        # IO.puts keyValue
     users = [
       %{name: "Joe",
         email: "joe@example.com",
@@ -49,6 +50,7 @@ defmodule RomulusWeb.ProfileController do
   # end
 
   def getprofile(conn, %{"username" => username}, current_user) do
+  # rewrite me to get a profile value for a key
     IO.puts "I am in show function"
     users = 
       %{name: "Joe",
@@ -73,12 +75,12 @@ defmodule RomulusWeb.ProfileController do
     testProfile1 = 
       %{name: "Joe",
         email: "joe@example.com",
-        sex: "maile"}
+        gender: "maile"}
     keyValue = Randomizer.randomizer(10)
-    o = Riak.Object.create(bucket: "profile", key: "joe@example.com", data: testProfile1)
+    o = Riak.Object.create(bucket: "profile", key: username, data: testProfile1)
     Riak.put(o)
     
-    IO.puts "Setup default data for profiles"
+    IO.puts "Setup default data for profiles " <> username
     data = 
       %{complete: "new user data setup"}
     json conn, data
