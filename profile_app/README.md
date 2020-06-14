@@ -55,3 +55,10 @@ GET to /search/username
 
 GET to /setup/username
 
+# From the command line
+
+{:ok, pid} = Riak.Connection.start_link('192.168.2.175', 8087)
+
+o = Riak.find(pid, "profile", "joe@example.com")
+
+
