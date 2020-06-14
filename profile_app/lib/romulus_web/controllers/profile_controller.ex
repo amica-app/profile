@@ -49,15 +49,17 @@ defmodule RomulusWeb.ProfileController do
   #   json conn, users
   # end
 
+  #def setuptestdata(conn, %{"username" => username}, current_user) do
   def getprofile(conn, %{"username" => username}, current_user) do
-  # rewrite me to get a profile value for a key
-    IO.puts "I am in show function"
+    #{:ok, fetched_obj} = PBSocket.get(conn, "profile", username)
+    value = Riak.find("profile",username)
+    IO.puts "I am in get profile" #<> value.data
     users = 
       %{name: "Joe",
         email: "joe@example.com",
         password: "topsecret",
         stooge: "moe"}
-    json conn, users
+    json conn, value.data |> :erlang.binary_to_term
     # case Users.get_by_username(username) do
     #   user = %User{} ->
     #     conn
@@ -71,11 +73,18 @@ defmodule RomulusWeb.ProfileController do
     # end
   end
 
+  def build(conn, %{"user" => user_params}, _) do
+    usernameKey = user_params["username"]
+    o = Riak.Object.create(bucket: "profile", key: usernameKey, data: user_params)
+    Riak.put(o)
+    send_resp(conn,200,"")
+  end
+
   def setuptestdata(conn, %{"username" => username}, current_user) do
     testProfile1 = 
-      %{name: "Joe",
-        email: "joe@example.com",
-        gender: "maile"}
+      %{name: "Default Profile Name",
+        email: username,
+        gender: "female"}
     keyValue = Randomizer.randomizer(10)
     o = Riak.Object.create(bucket: "profile", key: username, data: testProfile1)
     Riak.put(o)
@@ -85,4 +94,16 @@ defmodule RomulusWeb.ProfileController do
       %{complete: "new user data setup"}
     json conn, data
   end
+
+  # def setuptestdata(conn, %{"username" => username}, current_user) do
+  #   testProfile1 = "test"
+  #  # keyValue = Randomizer.randomizer(10)
+  #   o = Riak.Object.create(bucket: "profile", key: username, data: testProfile1)
+  #   Riak.put(o)
+    
+  #   IO.puts "Setup default data for profiles " <> username
+  #   data = 
+  #     %{complete: "new user data setup"}
+  #   json conn, data
+  # end
 end
