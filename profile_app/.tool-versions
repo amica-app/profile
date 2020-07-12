@@ -1,2 +1,8 @@
 erlang 21.1
-elixir 1.9.0-otp-21
+elixir 1.10.0
+# nodejs 10.15.3
+nodejs 13.7.0
+
+
+#erlang 21.1
+#elixir 1.9.0-otp-21
