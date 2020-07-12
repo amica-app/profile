@@ -1,24 +1,18 @@
-defmodule RomulusApp.Mixfile do
+defmodule MixDeployExample.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :romulus_app,
-      version: "1.0.0",
+      app: :mix_deploy_example,
+      version: "0.1.0",
       elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(), # ++ [:phoenix_swagger]
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      test_coverage: [tool: ExCoveralls],
-
-      # Docs
-      name: "RomulusApp",
-      source_url: "https://github.com/haighis/romulus_app",
-      homepage_url: "https://github.com/haighis/romulus_app",
-      # The main page in the docs
-      docs: [main: "README", extras: ["README.md"]]
+      default_release: :mix_deploy_example,
+      releases: releases()
     ]
   end
 
@@ -26,42 +20,53 @@ defmodule RomulusApp.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {RomulusApp.Application, []}, extra_applications: [:logger, :runtime_tools, :comeonin, :httpoison]] # :romulus, :wobserver :toniq, :phoenix_pubsub
+    [
+      mod: {MixDeployExample.Application, []},
+      extra_applications: [:logger, :runtime_tools, :ssl]
+    ]
   end
 
-  # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support", "test/factories"]
+  # Paths to compile per environment
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
+
+  defp releases do
+    [
+      prod: [
+        include_executables_for: [:unix],
+        steps: [:assemble, :tar],
+      ],
+      aws: [
+        include_executables_for: [:unix],
+        steps: [:assemble, :tar],
+        config_providers: [
+          {TomlConfigProvider, path: "/etc/mix-deploy-example/config.toml"}
+        ],
+      ],
+    ]
+  end
 
   # Specifies your project dependencies.
   #
   # Type `mix help deps` for examples and options.
-  # 
-  # https://hexdocs.pm/mix/Mix.Tasks.Deps.html
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
-      #{:postgrex, "~> 0.13.3"},
+      {:distillery, "~> 2.1"},
+      {:ecto_sql, "~> 3.0"},
       {:gettext, "~> 0.11"},
-      {:proper_case, "~> 1.0.0"},
-      {:cowboy, "~> 1.1"},
-      {:plug_cowboy, "~> 1.0.0"},
-      {:comeonin, "~> 3.2"},
-      {:guardian, "~> 1.0"},
-      {:excoveralls, "~> 0.7", only: [:dev, :test]},
-      {:credo, "~> 0.8.5", only: [:dev, :test]},
-      {:ex_machina, "~> 2.0", only: :test},
-      {:ex_doc, "~> 0.16", only: :dev, runtime: false},
-      {:plug, "~> 1.0"},
-    
-      {:poison, "~> 3.1"},
-      {:httpoison, "~> 1.6"},
-    #  {:wobserver, "~> 0.1"},
-      {:corsica, "~> 1.0"}, #,
+      {:jason, "~> 1.0"},
+      # {:mix_deploy, "~> 0.7"},
+      {:mix_deploy, github: "cogini/mix_deploy", branch: "master"},
+      {:mix_systemd, github: "cogini/mix_systemd", override: true},
+      {:phoenix, "~> 1.4.6"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:plug_cowboy, "~> 2.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:toml_config, "~> 0.1.0"}, # Mix releases
       {:riak, "~> 1.1.6"}
-      #{:phoenix_swagger, "~> 0.8"}
     ]
   end
 
